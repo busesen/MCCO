@@ -9,8 +9,8 @@ This part focuses on reproducing the experiments in subsection “MCCE with a Kn
 
 We consider a synthetic instance of the MCCE problem with $T=3$ stages. The nested expectation problem is defined by the following integrands:
 
-$$f_1(\xi_1, x1) = \sin(\xi_1 + x_1)$$
-$$f_2(\xi_2, x2) = \sin(\xi_2 - x_2)$$
+$$f_1(\xi_1, x_1) = \sin(\xi_1 + x_1)$$
+$$f_2(\xi_2, x_2) = \sin(\xi_2 - x_2)$$
 $$f_3(\xi_3, x_3) = \xi_3$$
 
 **Disturbances:**
