@@ -11,7 +11,7 @@ We consider a synthetic instance of the MCCE problem with $T=3$ stages. The nest
 
 $$f_1(\xi_1, x_1) = \sin(\xi_1 + x_1)$$
 $$f_2(\xi_2, x_2) = \sin(\xi_2 - x_2)$$
-$$f_3(\xi_3, x_3) = \xi_3$$
+$$f_3(\xi_3, x) = \xi_3$$
 
 **Disturbances:**
 The disturbances follow a Markovian structure:
