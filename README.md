@@ -1,5 +1,4 @@
 # MCCE with a Known Ground-Truth Solution 
-# Truncated MLMC, Untruncated MLMC & SAA for F(x)
 
 This repository contains the Python implementation for comparing **Truncated Multilevel Monte Carlo (MLMC)** estimators against **Sample Average Approximation (SAA)** and **Untruncated MLMC** for Multistage Conditional Compositional Estimation (MCCE).
 
@@ -29,6 +28,33 @@ $$F(x) = \exp(-1/2) \approx 0.6065$$
 2.  **SAA2:** An SAA estimator emphasizing the first stage: $n_1 = n_2^2 = n_3^2$.
 3.  **Untruncated MLMC:** Uses geometric branching with rates $r_1=0.74, r_2=0.60$. The rates are adapted from Syed and Wang, ICML, 2023. 
 4.  **Truncated MLMC:** Uses geometric branching with rates $r_1 \approx 0.65, r_2 \approx 0.58$ and truncation levels $M_1=6, M_2=5$.
+
+* **`estimators.py`**: Contains the implementations of the three main estimators:
+    * `Truncated_MLMC`: The proposed truncated MLMC estimator.
+    * `Untruncated_MLMC`: The untruncated MLMC estimator.
+    * `SAA`: The Sample Average Approximation estimator.
+    * Also includes cost helper functions (`cost_untruncated`, `cost_truncated`, `cost_saa`).
+
+* **`problem_setup.py`**: Defines the MCCE problem instance used in the experiments.
+    * `simulator_gaussian_martingale`: The simulator for the disturbances $\xi_t$.
+    * `funs`: The list of functions $f_1, f_2, f_3$.
+    * `true_val`: The ground truth value ($e^{-0.5}$) used for calculating mean squared error.
+
+* **`run_test.py`**: The main driver script that orchestrates the experiments. It:
+    * Parses command-line arguments.
+    * Runs parallel simulations for all estimators using `ProcessPoolExecutor`.
+    * Saves raw results to `.npy` files and summaries to `.json` files.
+
+* **`visualization.py`**: Handles all data visualization.
+    * Generates the Log-MSE vs. Log-Cost plot.
+    * Generates the Running Average plots with 95% Confidence Intervals.
+
+## 🚀 Usage
+First, ensure you have the required dependencies installed (see `requirements.txt`).
+To run the full experiment with the default settings (10 replicates, horizon $T=3$, default rates), simply run:
+
+```bash
+python run_test.py
 
 ## 📚 References
 
