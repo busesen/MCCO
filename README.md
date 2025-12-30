@@ -1,4 +1,4 @@
-# MCCO
+# MCCE with a Known Ground-Truth Solution 
 # Truncated MLMC, Untruncated MLMC & SAA for F(x)
 
 This repository contains the Python implementation for comparing **Truncated Multilevel Monte Carlo (MLMC)** estimators against **Sample Average Approximation (SAA)** and **Untruncated MLMC** for Multistage Conditional Compositional Estimation (MCCE).
