@@ -33,7 +33,7 @@ $$F(x) = \exp(-1/2) \approx 0.6065$$
     * `Truncated_MLMC`: The proposed truncated MLMC estimator.
     * `Untruncated_MLMC`: The untruncated MLMC estimator.
     * `SAA`: The Sample Average Approximation estimator.
-    * Also includes cost helper functions (`cost_untruncated`, `cost_truncated`, `cost_saa`).
+    * Also includes cost helper functions (`cost_untruncated`, `cost_truncated`, `cost_saa`). The functions `cost_untruncated` and `cost_truncated` compute the expected cost per tree for the untruncated and truncated MLMC estimators, respectively. This cost is given by $\mathbb{E}[2^{\lambda_1}] \times \mathbb{E}[2^{\lambda_2}]$. The function `cost_saa` computes the deterministic cost per tree, which equals $n_2 \times n_3$.
 
 * **`problem_setup.py`**: Defines the MCCE problem instance used in the experiments.
     * `simulator_gaussian_martingale`: The simulator for the disturbances $\xi_t$.
@@ -55,6 +55,7 @@ To run the full experiment with the default settings (10 replicates, horizon $T=
 
 ```bash
 python run_test.py
+```
 
 ## 📚 References
 
