@@ -35,7 +35,7 @@ This folder reproduces the experiments from the subsection
   - Truncated MLMC
 * Includes implementations of estimators, cost models, experiment scripts, and visualization utilities.
 
-See `mcce-with-known-ground-truth/README.md` for full details.
+See `mcce-with-known-ground-truth/README.md` for details.
 
 ---
 
@@ -48,10 +48,10 @@ This folder reproduces the experiments from the subsection
 * Formulated as a multistage optimal stopping problem.
 * Compares:
   - Untruncated MLMC (Zhou et al., 2023)
-  - Truncated MLMC (proposed)
+  - Truncated MLMC 
 * Focuses on estimator accuracy versus computational cost in a financial application.
 
-See `option-pricing/README.md` for full details.
+See `option-pricing/README.md` for details.
 
 ---
 
