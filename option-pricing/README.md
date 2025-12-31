@@ -29,4 +29,4 @@ The problem is modeled as an optimal stopping problem where the price is the ris
 
 ## 📚 References
 
-* Zhengqing Zhou, Guanyang Wang, Jose H Blanchet, and Peter W Glynn. [Unbiased optimal stopping via the MUSE](https://www.sciencedirect.com/science/article/pii/S0304414922002654). Stochastic Processes and their Applications, 166:104088, 2023.
+* Zhengqing Zhou, Guanyang Wang, Jose H Blanchet, and Peter W Glynn. [Unbiased optimal stopping via the MUSE](https://www.sciencedirect.com/science/article/pii/S0304414922002654). *Stochastic Processes and their Applications*, 166:104088, 2023.
