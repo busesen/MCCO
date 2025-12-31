@@ -56,8 +56,7 @@ See `option-pricing/README.md` for full details.
 
 ## Requirements and Usage
 
-Each subfolder contains its own experiment scripts and relies on standard scientific Python packages listed in the corresponding `requirements.txt`.  
-Experiments can be run independently by navigating to the desired folder and executing the main script described in its README.
+Each subfolder contains its own experiment scripts and relies on standard scientific Python packages listed in the corresponding `requirements.txt`. We use Python 3.12.3 for our experiments. Instructions on how to run the code for each experiment can be found in the corresponding subfolders.
 
 ---
 
