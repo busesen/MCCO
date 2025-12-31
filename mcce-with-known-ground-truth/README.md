@@ -58,4 +58,4 @@ python run_test.py
 
 ## 📚 References
 
-* Yasa Syed and Guanyang Wang. [Optimal randomized multilevel Monte Carlo for repeatedly nested expectations](https://proceedings.mlr.press/v202/syed23a.html). In International Conference on Machine Learning, pages 33343–33364, 2023.
+* Yasa Syed and Guanyang Wang. [Optimal randomized multilevel Monte Carlo for repeatedly nested expectations](https://proceedings.mlr.press/v202/syed23a.html). In *International Conference on Machine Learning*, pages 33343–33364, 2023.
