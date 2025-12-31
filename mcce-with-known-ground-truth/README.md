@@ -40,9 +40,8 @@ $$F(x) = \exp(-1/2) \approx 0.6065$$
     * `funs`: The list of functions $f_1, f_2, f_3$.
     * `true_val`: The ground truth value ($e^{-0.5}$) used for calculating mean squared error.
 
-* **`run_test.py`**: The main driver script that orchestrates the experiments. It:
-    * Parses command-line arguments.
-    * Runs parallel simulations for all estimators using `ProcessPoolExecutor`.
+* **`run_test.py`**: The main script that runs the experiments. It:
+    * Runs parallel simulations for all estimators.
     * Saves raw results to `.npy` files and summaries to `.json` files.
 
 * **`visualization.py`**: Handles all data visualization.
