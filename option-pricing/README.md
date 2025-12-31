@@ -26,6 +26,25 @@ The problem is modeled as an optimal stopping problem where the price is the ris
 * **`run_option_parallel.py`**: The main script that runs the experiments. It:
     * Runs parallel simulations for all estimators.
     * Saves raw results to `.npy` files and summaries to `.json` files.
+* **`option_indep_setup.py`**: Defines a simplified and computationally cheap option pricing problem used for rate selection, in which the average asset price is replaced by a standard normal distribution.
+* **`rate_search.py`**: Implements the procedure for selecting the geometric rate parameters by approximating the **work-normalized variance** over a grid of candidate rates. A piecewise linear convex function of $r$ is fitted to the resulting approximations, and the rate parameter is selected as a minimizer of this fitted function. This procedure yields:
+   * $r = 0.59$ for truncation levels $M_t = 9$ and $M_t = 11$,
+   * $r = 0.58$ for truncation level $M_t = 10$,
+   * $r = 0.60$ for truncation level $M_t = \infty$ (untruncated).
+These rate parameters are used in the final truncated MLMC experiments reported in the paper.
+
+## 🚀 Usage
+First, ensure you have the required dependencies installed (see `requirements.txt`).
+To run the full experiment with the default settings, simply run:
+
+```bash
+python run_option.py
+```
+
+If you want to redo the rate search, run:
+```bash
+python rate_search.py
+```
 
 ## 📚 References
 
