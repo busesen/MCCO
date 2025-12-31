@@ -215,8 +215,7 @@ if __name__ == "__main__":
                             run_truncated_worker,
                             seed_i, trunc_value, T, n_max, r_tr,
                             args.discount, args.delta, args.volatility,
-                            args.dimension, args.S0, args.strike_price,
-                            args.algo
+                            args.dimension, args.S0, args.strike_price
                         )
                     )
 
