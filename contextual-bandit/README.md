@@ -12,9 +12,9 @@ The experiment compares a **Sample Average Approximation (SAA)** gradient estima
 
 We study the optimization problem
 
-min_{θ, λ ≥ 0}  
-E_{c'} [ (1/μ) log E_u [ exp( μ( E_{y|u}[∑_a π_θ(a|u) y_a]  
-                              + r_y + r_c² λ − λ‖u − c'‖² ) ) ] ]
+$$
+\min_{\theta, \lambda \geq 0} 𝔼_{c'} \left[ \frac{1}{\mu} \log 𝔼_u \left[ \exp \left( \mu \left( 𝔼_{y|u} \left[ \sum_a \pi_\theta(a|u) y_a \right] + r_y + r_c^2 \lambda - \lambda \|u - c'\|^2 \right) \right) \right] \right]
+$$
 
 This objective arises from a **Wasserstein distributionally robust formulation** of offline contextual bandits and involves:
 
@@ -58,53 +58,51 @@ Contexts are normalized to `[0,1]` before simulation.
 ```
 
 ---
+ * **`costs.py`**: Cost Model
+     * Two actions (treatments): a0 and a1
+     * Costs are stochastic and Gaussian
+     * Conditional mean:
+         * piecewise linear in feature `c_4`
+         * split by binary indicator `c_0`
+     * Test-time distribution shift applied via `shift = [s0, s1]`.
 
-## Cost Model
 
-- Two actions (treatments): a0 and a1
-- Costs are stochastic and Gaussian
-- Conditional mean:
-  - piecewise linear in feature `c_4`
-  - split by binary indicator `c_0`
-- Test-time distribution shift applied via `shift = [s0, s1]`
+* **`empirical_solver.py`**: Exact Robust Solution
 
-Implemented in `costs.py`.
+  * The file `empirical_solver.py` computes the **exact population solution** of the DRO objective using  scipy.optimize  as it is a convex optimization problem if the cost distribution is known.
+  * This solution is used as a **ground-truth benchmark** for evaluating convergence of SAA and MLMC.
+  * Example output:
+    * Optimal parameters: (λ*, θ₁*, θ₂*) ≈ (7.96, 0.25, 0.89)
 
----
+* **`estimators.py`**: Gradient Estimators
 
-## Exact Robust Solution
+  * Sample Average Approximation (SAA): `SAA_grad()`
+  * Truncated Multilevel Monte Carlo (MLMC): truncated_MLMC_grad()
 
-The file `empirical_solver.py` computes the **exact population solution** of the DRO objective using deterministic integration and L-BFGS-B.
 
-This solution is used as a **ground-truth benchmark** for evaluating convergence of SAA and MLMC.
+* **`helpers.py`**: Optimization & Evaluation
+  * Optimizer: Adam
+  * Projection:
+    * λ ≥ 0
+    * θ₁, θ₂ ∈ [0,1]
+  * Gradients optionally clipped for stability
+  * After training, policies are evaluated on a **shifted test distribution**:
+  
+  * Covariate shift via `COUNT_2`
+  * Cost shift via additive mean perturbation
 
-Example output:
-- Optimal parameters: (λ*, θ₁*, θ₂*) ≈ (7.96, 0.25, 0.89)
+Metrics:
+* Exact theoretical test cost
+* SAA estimate of the DRO objective
+in helpers.py
 
----
+* **`visualization.py`**:
+  * Plots include:
+  * Parameter trajectories
+  * Cost vs computational budget
 
-## Gradient Estimators
 
-### Sample Average Approximation (SAA)
-
-- Nested Monte Carlo estimator
-- Explicitly samples all three stages
-- Simple but high variance and expensive
-
-Implemented in `estimators.py`.
-
-### Truncated Multilevel Monte Carlo (MLMC)
-
-- Exploits coupling across levels
-- Uses random truncation
-- Reduces variance per unit cost
-- Stable log-sum-exp implementation
-
-Implemented in `estimators.py`.
-
----
-
-## Running the Experiment
+## 🚀 Usage
 
 From this folder:
 
@@ -121,50 +119,3 @@ Key command-line arguments:
 - `--learning_rates` : optimizer step sizes
 - `--r_c`, `--r_y` : Wasserstein radii
 - `--mu` : softmax temperature
-
-All results are saved under the `results/` directory.
-
----
-
-## Optimization
-
-- Optimizer: Adam
-- Projection:
-  - λ ≥ 0
-  - θ₁, θ₂ ∈ [0,1]
-- Gradients optionally clipped for stability
-
-Implemented in `helpers.py`.
-
----
-
-## Evaluation
-
-After training, policies are evaluated on a **shifted test distribution**:
-
-- Covariate shift via `COUNT_2`
-- Cost shift via additive mean perturbation
-
-Metrics:
-- Exact theoretical test cost
-- Monte Carlo estimate of the DRO objective
-
-Plots include:
-- Parameter trajectories
-- Gradient trajectories
-- Cost vs computational budget
-
-Implemented in `visualization.py`.
-
----
-
-## Reproducibility
-
-- All randomness is controlled via explicit seeding
-- Exact solver and synthetic data ensure reproducible benchmarks
-
----
-
-## Citation
-
-If you use this code, please cite the corresponding paper and related work on Wasserstein distributionally robust bandits and MLMC gradient estimation.
