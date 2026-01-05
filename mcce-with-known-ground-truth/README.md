@@ -29,6 +29,8 @@ $$F(x) = \exp(-1/2) \approx 0.6065$$
 3.  **Untruncated MLMC:** Uses geometric branching with rates $r_1=0.74, r_2=0.60$. The rates are adapted from Syed and Wang, ICML, 2023. 
 4.  **Truncated MLMC:** Uses geometric branching with rates $r_1 \approx 0.65, r_2 \approx 0.58$ and truncation levels $M_1=6, M_2=5$.
 
+## Folder Structure
+
 * **`estimators.py`**: Contains the implementations of the three main estimators:
     * `Truncated_MLMC`: The proposed truncated MLMC estimator.
     * `Untruncated_MLMC`: The untruncated MLMC estimator.
