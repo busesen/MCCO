@@ -7,6 +7,7 @@ The experiments evaluate **Truncated Multilevel Monte Carlo (MLMC)** methods for
 
 1. A synthetic MCCE problem with a **known ground-truth solution**, enabling precise bias–variance–cost comparisons.
 2. A **Bermudan basket option pricing** problem, illustrating performance in a realistic optimal stopping setting.
+3. A **distributionally robust contextual bandit** problem, demonstrating the efficiency of gradient estimation in optimization tasks.
 
 Each experiment is self-contained and organized in a separate subfolder.
 
@@ -18,6 +19,7 @@ Each experiment is self-contained and organized in a separate subfolder.
 .
 ├── mcce-with-known-ground-truth/
 ├── option-pricing/
+├── contextual-bandit/
 ├── README.md
 └── requirements.txt
 ```
@@ -52,6 +54,18 @@ This folder reproduces the experiments from the subsection
 * Focuses on estimator accuracy versus computational cost in a financial application.
 
 See `option-pricing/README.md` for details.
+
+---
+
+### `contextual-bandit/`
+This folder reproduces the experiments from the subsection  
+**“Contextual Bandits”**.
+* Solves a Wasserstein Distributionally Robust Optimization (DRO) problem for offline policy learning.
+* Compares:
+  * Stochastic Gradient Descent convergence using SAA gradient estimators.
+  * Stochastic Gradient Descent convergence using Truncated MLMC gradient estimators.
+ 
+See `contextual-bandit/README.md` for details.
 
 ---
 
