@@ -41,6 +41,10 @@ Contexts are normalized to `[0,1]` before simulation.
 
 ---
 
+## Cost Function
+
+Defined in `costs.py`, the cost function is piecewise linear and depend on contexts `c_0` and `c_4`.
+
 ## Folder Structure
 
 ```
@@ -56,50 +60,40 @@ Contexts are normalized to `[0,1]` before simulation.
 ├── visualization.py     # Plotting and evaluation figures
 └── README.md             # This file
 ```
-
 ---
- * **`costs.py`**: Cost Model
-     * Two actions (treatments): a0 and a1
-     * Costs are stochastic and Gaussian
+ 
+* **`estimators.py`**: Implements the gradient estimators.
+
+  * `SAA_grad` Sample Average Approximation (SAA) estimator.
+  * `truncated_MLMC_grad`: The proposed Truncated Multilevel Monte Carlo (MLMC) estimator.
+
+* **`simulators.py`**: Defines the data-generating process.
+  * `simulator`: Generates samples for the 3 stages (Context $c'$ $\to$ Context $u$ $\to$ Cost $y$).
+  * `simulator_test`: Handles the test-time distribution shifts (using COUNT_2 and additive cost shifts).
+    
+* **`costs.py`**: Contains the known conditional cost functions $\mathbb{E}[y|c, a]$.
      * Conditional mean:
          * piecewise linear in feature `c_4`
          * split by binary indicator `c_0`
      * Test-time distribution shift applied via `shift = [s0, s1]`.
+       
+* **`empirical_solver.py`**: Computes the ground truth.
+  * Uses scipy.optimize to solve the convex DRO problem exactly over the finite population. This provides the optimal parameters $(\lambda^*, \theta^*)$ for benchmarking.
+  * Optimal parameters are found as: (λ*, θ₁*, θ₂*) ≈ (7.96, 0.25, 0.89)
 
 
-* **`empirical_solver.py`**: Exact Robust Solution
-
-  * The file `empirical_solver.py` computes the **exact population solution** of the DRO objective using  scipy.optimize  as it is a convex optimization problem if the cost distribution is known.
-  * This solution is used as a **ground-truth benchmark** for evaluating convergence of SAA and MLMC.
-  * Example output:
-    * Optimal parameters: (λ*, θ₁*, θ₂*) ≈ (7.96, 0.25, 0.89)
-
-* **`estimators.py`**: Gradient Estimators
-
-  * Sample Average Approximation (SAA): `SAA_grad()`
-  * Truncated Multilevel Monte Carlo (MLMC): truncated_MLMC_grad()
-
-
-* **`helpers.py`**: Optimization & Evaluation
-  * Optimizer: Adam
-  * Projection:
-    * λ ≥ 0
-    * θ₁, θ₂ ∈ [0,1]
-  * Gradients optionally clipped for stability
-  * After training, policies are evaluated on a **shifted test distribution**:
+* **`helpers.py`**: Utilities for the training loop.
+  * `train_adam`: Generic SGD loop with ADAM as optimizer
+  * `projection_x`: Enforces constraints ($\lambda \ge 0$, $\theta \in [0,1]$).
+  * `evaluate_test_performance`: Compares the learned policy against the theoretical optimal cost on the test set.
   
-  * Covariate shift via `COUNT_2`
-  * Cost shift via additive mean perturbation
-
-Metrics:
-* Exact theoretical test cost
-* SAA estimate of the DRO objective
-in helpers.py
-
-* **`visualization.py`**:
-  * Plots include:
-  * Parameter trajectories
-  * Cost vs computational budget
+* **`run_ctx.py`**: (Entry Point) Orchestrates the experiment.
+  * It loads data, runs the exact solver, trains models using SAA and MLMC, and logs performance metrics.
+  
+* **`visualization.py`**: Generates plots for:
+  * Convergence of $\lambda$, $\theta_1$, and $\theta_2$ over iterations.
+  * * Convergence of $\lambda$, $\theta_1$, and $\theta_2$ over the number of samples generated.
+  * Tail average performance vs. computational cost.
 
 
 ## 🚀 Usage
