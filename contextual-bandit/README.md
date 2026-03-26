@@ -4,7 +4,7 @@ This folder contains the full experimental pipeline for the **distributionally r
 
 > *Distributionally Robust Policy Learning for Offline Contextual Bandits*
 
-The experiment compares a **Sample Average Approximation (SAA)** gradient estimator with a **truncated Multilevel Monte Carlo (MLMC)** gradient estimator for solving a **three-stage MCCO** problem.
+The experiment compares a **Sample Average Approximation (SAA)** gradient estimator with a **Multilevel Monte Carlo (MLMC)** gradient estimator for solving a **three-stage MCCO** problem.
 
 ---
 
@@ -35,7 +35,6 @@ The goal is to estimate gradients of this objective efficiently.
 - Synthetic population size: 9,000
 - Weights:
   - `COUNT_1`: training (behavioral) distribution
-  - `COUNT_2`: test distribution (shifted)
 
 Contexts are normalized to `[0,1]` before simulation.
 
@@ -52,12 +51,12 @@ Defined in `costs.py`, the cost function is piecewise linear and depend on conte
 ├── dataset.xlsx          # Synthetic contextual bandit dataset
 ├── run_ctx.py            # Main experiment runner (CLI entry point)
 ├── empirical_solver.py   # Exact robust solver (ground truth)
-├── estimators.py         # SAA and truncated MLMC gradient estimators
+├── estimators.py         # SAA and MLMC gradient estimators
 ├── simulators.py         # Data-generating process (contexts & costs)
 ├── costs.py              # Conditional cost model E[y | c]
-├── helpers.py            # Training loop, projection, evaluation
+├── helpers.py            # Training loop and projection utilities
 ├── utils.py              # Seeding and tensor utilities
-├── visualization.py     # Plotting and evaluation figures
+├── visualization.py     # Plotting utilities
 └── README.md             # This file
 ```
 ---
@@ -65,17 +64,16 @@ Defined in `costs.py`, the cost function is piecewise linear and depend on conte
 * **`estimators.py`**: Implements the gradient estimators.
 
   * `SAA_grad` Sample Average Approximation (SAA) estimator.
-  * `truncated_MLMC_grad`: The proposed Truncated Multilevel Monte Carlo (MLMC) estimator.
+  * `truncated_MLMC_grad`: The MLMC estimator used in the experiments.
 
 * **`simulators.py`**: Defines the data-generating process.
   * `simulator`: Generates samples for the 3 stages (Context $c'$ $\to$ Context $u$ $\to$ Cost $y$).
-  * `simulator_test`: Handles the test-time distribution shifts (using COUNT_2 and additive cost shifts).
     
 * **`costs.py`**: Contains the known conditional cost functions $\mathbb{E}[y|c, a]$.
      * Conditional mean:
          * piecewise linear in feature `c_4`
          * split by binary indicator `c_0`
-     * Test-time distribution shift applied via `shift = [s0, s1]`.
+     * Cost shift parameterized by `shift = [s0, s1]`.
        
 * **`empirical_solver.py`**: Computes the ground truth.
   * Uses scipy.optimize to solve the convex DRO problem exactly over the finite population. This provides the optimal parameters $(\lambda^*, \theta^*)$ for benchmarking.
@@ -83,17 +81,13 @@ Defined in `costs.py`, the cost function is piecewise linear and depend on conte
 
 
 * **`helpers.py`**: Utilities for the training loop.
-  * `train_adam`: Generic SGD loop with ADAM as optimizer
-  * `projection_x`: Enforces constraints ($\lambda \ge 0$, $\theta \in [0,1]$).
-  * `evaluate_test_performance`: Compares the learned policy against the theoretical optimal cost on the test set.
+  * `train_adam`: ADAM training loop with a softplus parameterization for $\lambda$ and projected updates for $\theta$.
   
 * **`run_ctx.py`**: (Entry Point) Orchestrates the experiment.
   * It loads data, runs the exact solver, trains models using SAA and MLMC, and logs performance metrics.
   
 * **`visualization.py`**: Generates plots for:
-  * Convergence of $\lambda$, $\theta_1$, and $\theta_2$ over iterations.
-  * * Convergence of $\lambda$, $\theta_1$, and $\theta_2$ over the number of samples generated.
-  * Tail average performance vs. computational cost.
+  * The combined `plot_all_three` figure for $\lambda$, $\theta_1$, and $\theta_2$ versus sample paths.
 
 
 ## 🚀 Usage
