@@ -170,7 +170,7 @@ def plot_all_three(res_saa_all, res_mlmc_all, title, outfile, true_vals=None):
 
     for ax in (ax_lam, ax_th1, ax_th2):
         ax.grid(True, alpha=0.3)
-        ax.set_xlabel(r"\# Sample Paths")
+        ax.set_xlabel(r"\# Scenarios")
         ax.set_xscale("log")
 
     positive_x = []
@@ -288,7 +288,10 @@ def plot_all_three(res_saa_all, res_mlmc_all, title, outfile, true_vals=None):
             line.set_linewidth(1.5)
 
     if title:
-        fig.suptitle(title)
-    plt.tight_layout(rect=[0, 0, 1, 0.975])
+        fig.suptitle(title, y=0.995)
+
+    # `tight_layout` does not play well with figure-level legends/text.
+    # Reserve space for the top legends manually to avoid layout warnings.
+    fig.subplots_adjust(left=0.07, right=0.98, bottom=0.12, top=0.80)
     plt.savefig(outfile, format="pdf", facecolor="white", bbox_inches="tight")
     plt.close()

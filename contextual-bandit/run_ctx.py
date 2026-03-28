@@ -31,7 +31,7 @@ def main():
     # Paths
     p.add_argument("--data_path", default="dataset.xlsx")
     p.add_argument("--outdir", default="results/")
-    p.add_argument("--load_existing", default=None, help="Path to the json file")
+    p.add_argument("--load_existing", default="results/res_20260325_215231/res_20260325_215231.json", help="Path to the json file")
 
     
     # Run Params
@@ -74,8 +74,8 @@ def main():
         print(f"Loading: {args.load_existing}")
         json_path = args.load_existing
         base_dir = os.path.dirname(json_path)
-        replots_dir = os.path.join(base_dir, "replots")
-        os.makedirs(replots_dir, exist_ok=True)
+        replot_dir = os.path.join(base_dir, "replot")
+        os.makedirs(replot_dir, exist_ok=True)
 
         with open(json_path, "r") as f:
             loaded = json.load(f)
@@ -141,7 +141,7 @@ def main():
         print(f"Loaded True Opt: {exact['x_opt']}")
         print(f"Loaded {len(meta_recs)} run records.")
 
-        process_and_plot(replots_dir, meta_recs, args, exact, base_dir)
+        process_and_plot(replot_dir, meta_recs, args, exact, base_dir)
         return
 
     # Setup Environment
@@ -324,11 +324,10 @@ def process_and_plot(outdir, meta_recs, args, exact, data_dir=None):
     print("Plotting...")
     if data_dir is None:
         data_dir = outdir
+    os.makedirs(outdir, exist_ok=True)
 
     run_ts = _extract_run_timestamp(data_dir, outdir)
     combined_tag = run_ts
-    all_cfg_dir = os.path.join(outdir, "plots", "plots_all_configs")
-    os.makedirs(all_cfg_dir, exist_ok=True)
 
     grouped = defaultdict(list)
     for r in meta_recs: grouped[r['config_idx']].append(r)
@@ -355,10 +354,10 @@ def process_and_plot(outdir, meta_recs, args, exact, data_dir=None):
                 try:
                     data = np.load(path, allow_pickle=True).item()
                     
-                    # # Filter Broken Runs
-                    # if np.isnan(data['theta1']).any() or np.isnan(data['lambda_']).any():
-                    #     print(f"Skipping broken run: {x['file']}")
-                    #     continue
+                    # Filter Broken Runs
+                    if np.isnan(data['theta1']).any() or np.isnan(data['lambda_']).any():
+                        print(f"Skipping broken run: {x['file']}")
+                        continue
 
                     # Create a unique label for plotting
                     if x['method'] == "SAA":
@@ -392,7 +391,7 @@ def process_and_plot(outdir, meta_recs, args, exact, data_dir=None):
         viz.plot_all_three(
             d_saa_global, d_mlmc_global,
             "",
-            os.path.join(outdir, f"all_three_samples_{combined_tag}.pdf"),
+            os.path.join(outdir, f"convergence_samples_{combined_tag}.pdf"),
             true_vals=exact["x_opt"],
         )
     print("Done.")
