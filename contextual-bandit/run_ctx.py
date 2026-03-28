@@ -31,7 +31,7 @@ def main():
     # Paths
     p.add_argument("--data_path", default="dataset.xlsx")
     p.add_argument("--outdir", default="results/")
-    p.add_argument("--load_existing", default="results/res_20260325_215231/res_20260325_215231.json", help="Path to the json file")
+    p.add_argument("--load_existing", default=None, help="Path to the json file")
 
     
     # Run Params
@@ -115,28 +115,6 @@ def main():
             exact["fun"] = float(loaded["true_min"])
 
         meta_recs = loaded.get("runs", [])
-
-        # --- TEMP: HARDCODED FILTERING ------ DELETE BELOW LATER
-        print(f"Records before filtering: {len(meta_recs)}")
-        kept_recs = []
-        for r in meta_recs:
-            fname = r['file']
-            
-            # Skip.....
-            if "lrlam1_th0.025" in fname:
-                continue
-            if "lrlam1_th0.01" in fname:
-                continue
-            if "lrlam0.75_th0.01" in fname:
-                continue
-            if "SAA" in fname and "n1_" in fname:
-                continue
-                
-            kept_recs.append(r)
-            
-        meta_recs = kept_recs
-        print(f"Records after filtering: {len(meta_recs)}")
-        # --------------------------------- delete this (above) later ---------
 
         print(f"Loaded True Opt: {exact['x_opt']}")
         print(f"Loaded {len(meta_recs)} run records.")
