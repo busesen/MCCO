@@ -1,8 +1,8 @@
-# Bermudan Option Pricing via Truncated MLMC
+# Pricing Bermudan Options
 
-This repository contains the Python implementation for the numerical experiments described in the paper regarding the subsection **Pricing Bermudan Options**.
+This folder contains the Python implementation for comparing **Truncated Multilevel Monte Carlo (MLMC)** estimators against the **Untruncated MLMC estimator** (Zhou et al., 2023) for MCCE problem with nonsmooth functions. 
 
-Specifically, this code solves the **Bermudan Basket Option** pricing problem. It compares the performance of the proposed Truncated MLMC estimator against the Untruncated MLMC estimator (Zhou et al., 2023).
+This part focuses on reproducing the experiments in subsection "Pricing Bermudan Options".
 
 ## Problem Description
 
