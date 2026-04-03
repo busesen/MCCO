@@ -4,7 +4,7 @@ This folder contains the Python implementation for comparing **Truncated Multile
 
 This part focuses on reproducing the experiments in subsection “MCCE with a Known Ground-Truth Solution”. 
 
-## 📄 Experiment Description
+## 📄 Problem Description
 
 We consider a synthetic instance of the MCCE problem with $T=3$ stages. The nested expectation problem is defined by the following integrands:
 
@@ -29,7 +29,7 @@ $$F(x) = \exp(-1/2) \approx 0.6065$$
 3.  **Untruncated MLMC:** Uses geometric branching with rates $r_1=0.74, r_2=0.60$. The rates are adapted from Syed and Wang, ICML, 2023. 
 4.  **Truncated MLMC:** Uses geometric branching with rates $r_1 \approx 0.65, r_2 \approx 0.58$ and truncation levels $M_1=6, M_2=5$.
 
-## Folder Structure
+## 🗂️ Folder Structure
 
 * **`estimators.py`**: Contains the implementations of the three main estimators:
     * `Truncated_MLMC`: The proposed truncated MLMC estimator.
