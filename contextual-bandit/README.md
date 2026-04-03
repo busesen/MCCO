@@ -93,16 +93,6 @@ From this folder:
 python run_ctx.py
 ```
 
-Key command-line arguments:
-
-- `--K` : number of SGD iterations
-- `--num_runs` : number of independent runs
-- `--saa_sizes` : sample sizes for SAA
-- `--mlmc_sizes` : truncation levels and rates for MLMC
-- `--learning_rates` : optimizer step sizes
-- `--r_c`, `--r_y` : Wasserstein radii
-- `--mu` : softmax temperature
-
 ## 📚 References
 
 * Yi Shen, Pan Xu, and Michael Zavlanos. [Wasserstein Distributionally Robust Policy Evaluation and Learning for Contextual Bandits](https://arxiv.org/abs/2309.08748). *Transactions on Machine Learning Research*. 2024. ISSN 2835-8856. Featured Certification.
