@@ -1,10 +1,8 @@
 # Distributionally Robust Contextual Bandits (MLMC vs SAA)
 
-This folder contains the full experimental pipeline for the **distributionally robust offline contextual bandit** experiment described in the paper section:
+This folder contains the experimental pipeline for comparing **Sample Average Approximation (SAA)** gradient estimator against the (truncated) **Multilevel Monte Carlo (MLMC)** gradient estimator for solving a **three-stage MCCO** problem. 
 
-> *Distributionally Robust Policy Learning for Offline Contextual Bandits*
-
-The experiment compares a **Sample Average Approximation (SAA)** gradient estimator with a **Multilevel Monte Carlo (MLMC)** gradient estimator for solving a **three-stage MCCO** problem.
+This part focuses on reproducing the experiments in subsection "Contextual Bandits".
 
 ---
 
