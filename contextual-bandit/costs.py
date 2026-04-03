@@ -34,42 +34,42 @@ def cost_ymean(u, params, shift=None, Test=False):
     # Apply Contextual Logic
     # ---------------------------------------------------------
     # u_t is shape [..., d]
-    c0 = u_t[..., 0]
-    c4 = u_t[..., 4]
+    c1 = u_t[..., 0]
+    c5 = u_t[..., 4] 
     
-    # Binary mask: 1.0 if c0 != 0
-    c0_bin = (c0 != 0).to(u_t.dtype)
+    # Binary mask: 1.0 if c1 != 0
+    c1_bin = (c1 != 0).to(u_t.dtype)
     
-    # Group 1 values (c0 == 0)
-    mu_a0_g1 = p_g1[0] + p_g1[1] * c4
-    mu_a1_g1 = p_g1[2] + p_g1[3] * c4
+    # Group 1 values (c1 == 0)
+    mu_a0_g1 = p_g1[0] + p_g1[1] * c5
+    mu_a1_g1 = p_g1[2] + p_g1[3] * c5
     
-    # Group 2 values (c0 != 0)
-    mu_a0_g2 = p_g2[0] + p_g2[1] * c4
-    mu_a1_g2 = p_g2[2] + p_g2[3] * c4
+    # Group 2 values (c1 != 0)
+    mu_a0_g2 = p_g2[0] + p_g2[1] * c5
+    mu_a1_g2 = p_g2[2] + p_g2[3] * c5
     
     # Combine
-    mu_a0 = mu_a0_g1 * (1.0 - c0_bin) + mu_a0_g2 * c0_bin
-    mu_a1 = mu_a1_g1 * (1.0 - c0_bin) + mu_a1_g2 * c0_bin
+    mu_a0 = mu_a0_g1 * (1.0 - c1_bin) + mu_a0_g2 * c1_bin
+    mu_a1 = mu_a1_g1 * (1.0 - c1_bin) + mu_a1_g2 * c1_bin
     
     # ---------------------------------------------------------
     # Rare Tail-Risk Bump (applies to both actions)
     # ---------------------------------------------------------
-    HOT_C1 = 1
-    HOT_C2 = 1
-    HOT_C3 = 1
-    HOT_C5 = 1
+    HOT_C2 = 1 # as the contexts are normalized c2_unnormalized = 4 corresponds to c2_normalized = 1
+    HOT_C3 = 1 # as c3 is binary c3_unnormalized = 1 corresponds to c3_normalized = 1
+    HOT_C4 = 1 # as c4 is binary c4_unnormalized = 1 corresponds to c4_normalized = 1
+    HOT_C6 = 1 # as the contexts are normalized c6_unnormalized = 3 corresponds to c3_normalized = 1
     TAIL_AMP = torch.tensor(12.0, dtype=mu_a0.dtype, device=mu_a0.device)
 
-    c4_center = torch.tensor(2.5, dtype=mu_a0.dtype, device=mu_a0.device)
-    c4_scale = torch.tensor(2.5, dtype=mu_a0.dtype, device=mu_a0.device)
-    bump_shape = 0.2 + ((c4 - c4_center) / c4_scale) ** 2
+    c5_center = torch.tensor(2.5, dtype=mu_a0.dtype, device=mu_a0.device)
+    c5_scale = torch.tensor(2.5, dtype=mu_a0.dtype, device=mu_a0.device)
+    bump_shape = 0.2 + ((c5 - c5_center) / c5_scale) ** 2
 
     tail_mask = (
-        (u_t[..., 1] == HOT_C1)
-        & (u_t[..., 2] == HOT_C2)
-        & (u_t[..., 3] == HOT_C3)
-        & (u_t[..., 5] == HOT_C5)
+        (u_t[..., 1] == HOT_C2)
+        & (u_t[..., 2] == HOT_C3)
+        & (u_t[..., 3] == HOT_C4)
+        & (u_t[..., 5] == HOT_C6)
     )
     tail_mask_f = tail_mask.to(dtype=mu_a0.dtype)
     tail_bump = TAIL_AMP * bump_shape * tail_mask_f
