@@ -1,4 +1,4 @@
-# Distributionally Robust Contextual Bandits (MLMC vs SAA)
+# Contextual Bandits
 
 This folder contains the Python implementation for comparing **Sample Average Approximation (SAA)** gradient estimator against the (truncated) **Multilevel Monte Carlo (MLMC)** gradient estimator for solving a **three-stage MCCO** problem. 
 
@@ -6,7 +6,7 @@ This part focuses on reproducing the experiments in subsection "Contextual Bandi
 
 ---
 
-## Problem Overview
+## 📄 Problem Description
 
 We study the optimization problem
 
@@ -24,68 +24,65 @@ The goal is to estimate gradients of this objective efficiently.
 
 ---
 
-## Dataset
+### Methods Compared
 
-**File:** `dataset.xlsx`
-
-- Context features: `c_0` – `c_5` (6 categorical variables)
-- Unique contexts: 1,440
-- Synthetic population size: 9,000
-- Weights:
-  - `COUNT_1`: training (behavioral) distribution
-
-Contexts are normalized to `[0,1]` before simulation.
+1. **SAA:** A standard SAA gradient estimator (as in Shen et al. 2024, accounted for the ambigous costs) with sample sizes $(n_1, n_2, n_3) \in \{(100, 200, 200), (100, 300, 300), (100, 500, 500), (100, 1000, 1000)\}$.
+2. **Truncated MLMC:** The proposed MLMC gradient estimatot with outer batch size $n_1 = 1000$, truncation levels $(M_1, M_2) \in \{(9, 5), (10, 6)\}$, and geometric rates $(r_1, r_2) = (0.5, 0.5)$.
 
 ---
 
-## Cost Function
 
-Defined in `costs.py`, the cost function is piecewise linear and depend on contexts `c_0` and `c_4`.
-
-## Folder Structure
+## 🗂️ Folder Structure
 
 ```
 .
 ├── dataset.xlsx          # Synthetic contextual bandit dataset
 ├── run_ctx.py            # Main experiment runner (CLI entry point)
-├── empirical_solver.py   # Exact robust solver (ground truth)
+├── empirical_solver.py   # Exact empirical solver (true optimum)
 ├── estimators.py         # SAA and MLMC gradient estimators
 ├── simulators.py         # Data-generating process (contexts & costs)
 ├── costs.py              # Conditional cost model E[y | c]
 ├── helpers.py            # Training loop and projection utilities
 ├── utils.py              # Seeding and tensor utilities
-├── visualization.py     # Plotting utilities
+├── visualization.py      # Plotting utilities
 └── README.md             # This file
 ```
 ---
  
-* **`estimators.py`**: Implements the gradient estimators.
+* **`estimators.py`**: Contains the implementations of the two gradient estimators:
 
-  * `SAA_grad` Sample Average Approximation (SAA) estimator.
-  * `truncated_MLMC_grad`: The MLMC estimator used in the experiments.
+  * `SAA_grad` Sample Average Approximation (SAA) gradient estimator.
+  * `truncated_MLMC_grad`: The proposed (truncated) MLMC gradient estimator.
 
 * **`simulators.py`**: Defines the data-generating process.
-  * `simulator`: Generates samples for the 3 stages (Context $c'$ $\to$ Context $u$ $\to$ Cost $y$).
+  * `simulator`: Generates samples for the 3 stages (Context $c'$ $\to$ Context $u$ $\to$ Cost $y$), where the first two stages follow uniform distributions and the final stage follows a lognormal distribution.
     
-* **`costs.py`**: Contains the known conditional cost functions $\mathbb{E}[y|c, a]$.
+* **`costs.py`**: Contains the conditional cost functions $\mathbb{E}[y|c, a]$.
      * Conditional mean:
-         * piecewise linear in feature `c_4`
-         * split by binary indicator `c_0`
-     * Cost shift parameterized by `shift = [s0, s1]`.
-       
-* **`empirical_solver.py`**: Computes the ground truth.
-  * Uses scipy.optimize to solve the convex DRO problem exactly over the finite population. This provides the optimal parameters $(\lambda^*, \theta^*)$ for benchmarking.
-  * Optimal parameters are found as: (λ*, θ₁*, θ₂*) ≈ (7.96, 0.25, 0.89)
+         * piecewise linear in feature `c_5`
+         * split by binary indicator `c_1`
+                  
+* **`empirical_solver.py`**: Computes the empirical ground truth.
+  * Uses scipy.optimize to solve the convex log-sum-exp problem exactly over the finite population. This provides the optimal parameters $(\lambda^*, \theta^*)$ for benchmarking.
+  * Optimal parameters are found as: (λ*, θ₁*, θ₂*) ≈ (11.829, 0.589, 0.713)
 
 
 * **`helpers.py`**: Utilities for the training loop.
   * `train_adam`: ADAM training loop with a softplus parameterization for $\lambda$ and projected updates for $\theta$.
   
-* **`run_ctx.py`**: (Entry Point) Orchestrates the experiment.
+* **`run_ctx.py`**: The main script that runs the experiments.
   * It loads data, runs the exact solver, trains models using SAA and MLMC, and logs performance metrics.
   
-* **`visualization.py`**: Generates plots for:
-  * The combined `plot_all_three` figure for $\lambda$, $\theta_1$, and $\theta_2$ versus sample paths.
+* **`visualization.py`**: Handles the data visualization.
+  * Generates ADAM convergence figure for $\lambda$, $\theta_1$, and $\theta_2$ versus the number of scenarios summed over 2,000 iterations.
+
+* **`dataset.xlsx`**: Contains the empirical context population used by the simulator and solver.
+  * Context features: `c_1` - `c_6` (6 categorical variables)
+  * Unique contexts: 1,440
+  * Population size: 9,000 
+  * Weight columns: `COUNT_1`, `COUNT_2`, and `COUNT`
+  * `COUNT_1` is used as the training (behavioral) distribution for sampling outer contexts
+  * Context features are normalized to `[0,1]` before simulation
 
 
 ## 🚀 Usage
@@ -105,3 +102,7 @@ Key command-line arguments:
 - `--learning_rates` : optimizer step sizes
 - `--r_c`, `--r_y` : Wasserstein radii
 - `--mu` : softmax temperature
+
+## 📚 References
+
+* Shen, Yi, Pan Xu, and Michael Zavlanos. [Wasserstein Distributionally Robust Policy Evaluation and Learning for Contextual Bandits](https://arxiv.org/abs/2309.08748). *Transactions on Machine Learning Research*. 2024.
