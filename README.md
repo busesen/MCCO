@@ -60,10 +60,10 @@ See `option-pricing/README.md` for details.
 ### `contextual-bandit/`
 This folder reproduces the experiments from the subsection  
 **“Contextual Bandits”**.
-* Solves a Wasserstein Distributionally Robust Optimization (DRO) problem for offline policy learning.
+* Solves a distributionally robust policy learning for offline contextual bandits.
 * Compares:
-  * Stochastic Gradient Descent convergence using SAA gradient estimators.
-  * Stochastic Gradient Descent convergence using Truncated MLMC gradient estimators.
+  * ADAM convergence over the number of scenarios generated using SAA gradient estimators (Shen et al., 2024).
+  * ADAM convergence over the number of scenarios generated using Truncated MLMC gradient estimators.
  
 See `contextual-bandit/README.md` for details.
 
