@@ -3,7 +3,7 @@
 This repository contains the Python implementations used to generate the numerical experiments in the paper  
 **_Multistage Conditional Compositional Optimization_**.
 
-The experiments evaluate **Truncated Multilevel Monte Carlo (MLMC)** methods for multistage conditional compositional optimization (MCCO) problems and compare them against relevant baselines across two representative settings:
+The experiments evaluate **Truncated Multilevel Monte Carlo (MLMC)** methods for multistage conditional compositional estimation and optimization (MCCE and MCCO) problems and compare them against relevant baselines across three representative settings:
 
 1. An MCCE problem with a **known ground-truth solution**, enabling precise bias–variance–cost comparisons.
 2. A **Bermudan basket option pricing** problem, illustrating performance in an optimal stopping setting.
