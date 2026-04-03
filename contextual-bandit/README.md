@@ -1,6 +1,6 @@
 # Distributionally Robust Contextual Bandits (MLMC vs SAA)
 
-This folder contains the experimental pipeline for comparing **Sample Average Approximation (SAA)** gradient estimator against the (truncated) **Multilevel Monte Carlo (MLMC)** gradient estimator for solving a **three-stage MCCO** problem. 
+This folder contains the Python implementation for comparing **Sample Average Approximation (SAA)** gradient estimator against the (truncated) **Multilevel Monte Carlo (MLMC)** gradient estimator for solving a **three-stage MCCO** problem. 
 
 This part focuses on reproducing the experiments in subsection "Contextual Bandits".
 
