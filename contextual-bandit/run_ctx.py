@@ -58,8 +58,8 @@ def main():
     p.add_argument("--r_y", default=0.15, type=float, help="Radius for cost distribution shift")
     p.add_argument("--mu", default=2.0, type=float, help="Softmax (inverse) temperature (bigger = closer to max)")
     p.add_argument("--cost_params", default="[[3, 5, 5.5, 1], [1.7, 3.5, 3, 1]]", help="Mean costs for the cost_ymean function")
-    p.add_argument("--covariance", default="[[5, 2.5], [2.5, 5]]", help="covariance matrix for actions:row 0->action0 | row1->action1")
-    p.add_argument("--shift", default="[0.1, 0.1]", help="Cost shift on the means of a0 and a1")
+    p.add_argument("--covariance", default="[[5, 2.5], [2.5, 5]]", help="covariance matrix for actions: row 0 -> a1 | row 1 -> a2")
+    p.add_argument("--shift", default="[0.1, 0.1]", help="Cost shift on the means of a1 and a2")
     p.add_argument("--gamma_1", default=0.005, type=float, help="Quadratic penalty on theta1: gamma_1 * theta1^2")
     p.add_argument("--gamma_2", default=0.005, type=float, help="Quadratic penalty on theta2: gamma_2 * theta2^2")
     

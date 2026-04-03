@@ -27,11 +27,11 @@ def build_env(
     and preparing tensors for the simulator.
 
     Data Columns & Weights:
-    - 'c_0'...'c_5': Context features.
+    - 'c_1'...'c_6': Context features.
     - 'COUNT_1': Represents weights of patients in the TRAINING set (used for optimization/solver).
 
     Args:
-        data_path (str): Path to the .xlsx dataset file containing context columns 
+        data_path (str): Path to the .xlsx dataset file containing context columns
                          and 'COUNT_1' weights.
         r_c (float): Context distribution shift radius (Wasserstein).
         r_y (float): Cost distribution shift radius (Wasserstein).
@@ -56,7 +56,7 @@ def build_env(
         data_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), data_path)
 
     data = pd.read_excel(data_path)
-    CTX_COLS = ["c_0", "c_1", "c_2", "c_3", "c_4", "c_5"]
+    CTX_COLS = ["c_1", "c_2", "c_3", "c_4", "c_5", "c_6"]
 
     # Scale contexts to [0, 1] (per-column)
     for c in CTX_COLS:

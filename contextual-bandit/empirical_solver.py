@@ -27,7 +27,7 @@ def solve_exact_robust_problem(data_env, x_initial):
     M_all = cost_ymean(U_all, data_env["cost_params"], data_env["shift"], Test=False)
     
     D2_rect = cdist(U_outer, U_all, metric='sqeuclidean')
-    mask_conscious_all = (U_all[:, 0] > 0.01)
+    mask_conscious_all = (U_all[:, 0] > 0.01) # or equivalently "U_all[:, 0] is not equal to 0"
     mask_not_conscious_all = ~mask_conscious_all
 
     r_y, r_c, mu = float(data_env["r_y"]), float(data_env["r_c"]), float(data_env["mu"])
@@ -36,11 +36,11 @@ def solve_exact_robust_problem(data_env, x_initial):
 
     def exact_loss(x):
         lam, th1, th2 = x
-        p_a0 = np.zeros(N_total)
-        p_a0[mask_conscious_all] = th1
-        p_a0[mask_not_conscious_all] = th2
+        p_a1 = np.zeros(N_total)
+        p_a1[mask_conscious_all] = th1
+        p_a1[mask_not_conscious_all] = th2
         
-        V = p_a0 * M_all[:, 0] + (1 - p_a0) * M_all[:, 1]
+        V = p_a1 * M_all[:, 0] + (1 - p_a1) * M_all[:, 1]
         
         E_mat = mu * (V.reshape(1, N_total) - lam * D2_rect)
         lse_i = logsumexp(E_mat, axis=1) - np.log(N_total)

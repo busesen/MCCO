@@ -33,7 +33,7 @@ def _compute_estimators_jit(
     
     Args:
         y_batch (Tensor): Simulated cost samples. Shape (Batch, N, 2).
-        p_vec (Tensor): Policy probability for action a=0 (theta1 or theta2). Shape (Batch,).
+        p_vec (Tensor): Policy probability for action a=1 (theta1 or theta2). Shape (Batch,).
         lam (Tensor): Current lambda value (scalar).
         dist2 (Tensor): Squared distances ||u - c'||^2. Shape (Batch,).
         r_y, r_c_sq, mu: Scalar constants from the problem formulation.
@@ -52,7 +52,7 @@ def _compute_estimators_jit(
     # Compute mean over all 2^l2 inner samples
     mean_y = y_batch.mean(dim=1)
 
-    # Difference in means between action a0 and a1
+    # Difference in means between action a1 and a2
     ydiff = mean_y[:, 0] - mean_y[:, 1]
 
     # The linear term inside the exponent for the fine level
@@ -564,4 +564,3 @@ def make_estimator_mlmc(data_env, trunc_M, rate, clip_lam, clip_th) -> Estimator
         )
         return _apply_theta_quadratic_grad(g, x, data_env), c
     return _est
-
