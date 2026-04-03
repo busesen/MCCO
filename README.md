@@ -88,7 +88,7 @@ For questions or support, please contact [Buse Sen](mailto:buse.sen@epfl.ch).
 This project is licensed under the [MIT License](LICENSE).
 
 ## 📚 References
-* Yi Shen, Pan Xu, and Michael Zavlanos. [Wasserstein Distributionally Robust Policy Evaluation and Learning for Contextual Bandits](https://arxiv.org/abs/2309.08748). *Transactions on Machine Learning Research*. 2024.
+* Yi Shen, Pan Xu, and Michael Zavlanos. [Wasserstein Distributionally Robust Policy Evaluation and Learning for Contextual Bandits](https://arxiv.org/abs/2309.08748). *Transactions on Machine Learning Research*. 2024. ISSN 2835-8856. Featured Certification.
 
 * Yasa Syed and Guanyang Wang. [Optimal randomized multilevel Monte Carlo for repeatedly nested expectations](https://proceedings.mlr.press/v202/syed23a.html). In *International Conference on Machine Learning*, pages 33343–33364, 2023.
 
