@@ -87,7 +87,7 @@ The goal is to estimate gradients of this objective efficiently.
 
 ## 🚀 Usage
 
-From this folder:
+First, ensure you have the required dependencies installed (see requirements.txt). To run the full experiment with the default settings, simply run:
 
 ```bash
 python run_ctx.py
