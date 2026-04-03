@@ -16,6 +16,14 @@ We consider a Bermudan basket option with the following parameters:
 
 The problem is modeled as an optimal stopping problem where the price is the risk-neutral expected net present value of payoffs under an optimal exercise strategy.
 
+### Methods Compared
+
+1. **Untruncated MLMC:** Uses a constant rate parameter $r_t \in \{0.5001, 0.6000\}$ across all stages. The setting with $r_t = 0.5001$ is not included in the default arguments of `run_option.py`, since it requires extremely high memory.
+2. **Truncated MLMC:** Uses truncation-rate pairs $(M_t, r_t) \in \{(9, 0.59), (10, 0.58), (11, 0.59)\}$, applied uniformly across all stages.
+   
+These rates (except $r_t=0.5001$) are found by running `rate_search.py` as explained below. 
+
+
 ## 🗂️ Folder Structure
 ```
 .
