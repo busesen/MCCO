@@ -1,6 +1,6 @@
 # MCCE with a Known Ground-Truth Solution 
 
-This folder contains the Python implementation for comparing **Truncated Multilevel Monte Carlo (MLMC)** estimators against **Sample Average Approximation (SAA)** and **Untruncated MLMC** for Multistage Conditional Compositional Estimation (MCCE).
+This folder contains the Python implementation for comparing **Truncated Multilevel Monte Carlo (MLMC)** estimators against both **Sample Average Approximation (SAA)** and **Untruncated MLMC** for Multistage Conditional Compositional Estimation (MCCE).
 
 This part focuses on reproducing the experiments in subsection “MCCE with a Known Ground-Truth Solution”. 
 
