@@ -4,7 +4,7 @@ This folder contains the Python implementation for comparing **Truncated Multile
 
 This part focuses on reproducing the experiments in subsection "Pricing Bermudan Options".
 
-## Problem Description
+## 📄 Problem Description
 
 We consider a Bermudan basket option with the following parameters:
 * **Assets**: $m=5$ assets following independent Geometric Brownian Motions.
@@ -16,13 +16,23 @@ We consider a Bermudan basket option with the following parameters:
 
 The problem is modeled as an optimal stopping problem where the price is the risk-neutral expected net present value of payoffs under an optimal exercise strategy.
 
-## File Structure
+## 🗂️ Folder Structure
+```
+.
+├── run_option.py            # Runs the main Bermudan option pricing experiments and saves results
+├── rate_search.py           # Searches for good MLMC rate parameters via work-normalized variance analysis
+├── option_setup.py          # Defines the Geometric Brownian Motion simulator and Bermudan payoff functions
+├── option_indep_setup.py    # Defines the simplified proxy setup used for rate tuning (i.e., used for rate_search.py)
+├── estimators.py            # Implements truncated and untruncated MLMC estimators and cost helpers
+└── README.md                # This file
+```
+---
 
 * **`estimators.py`**: Contains the implementations of the two main estimators:
     * `Truncated_MLMC`: The proposed truncated MLMC estimator.
     * `Untruncated_MLMC`: The untruncated MLMC estimator.
     * Also includes cost helper functions (`cost_untruncated`, `cost_truncated`). The functions `cost_untruncated` and `cost_truncated` compute the expected cost per tree for the untruncated and truncated MLMC estimators, respectively. This cost is given by $\mathbb{E}[2^{\lambda_1}] \times \mathbb{E}[2^{\lambda_2}]$. 
-* **`option_setup.py`**: Defines the specific physics of the problem (Geometric Brownian Motion simulator) and the Bermudan payoff functions.
+* **`option_setup.py`**: Defines the specifics of the problem (Geometric Brownian Motion simulator) and the Bermudan payoff functions.
 * **`run_option_parallel.py`**: The main script that runs the experiments. It:
     * Runs parallel simulations for all estimators.
     * Saves raw results to `.npy` files and summaries to `.json` files.
