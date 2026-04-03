@@ -1,11 +1,11 @@
-# Multistage Conditional Compositional Optimization — Numerical Experiments
+# Multistage Conditional Compositional Optimization 
 
 This repository contains the Python implementations used to generate the numerical experiments in the paper  
 **_Multistage Conditional Compositional Optimization_**.
 
 The experiments evaluate **Truncated Multilevel Monte Carlo (MLMC)** methods for multistage conditional compositional optimization (MCCO) problems and compare them against relevant baselines across two representative settings:
 
-1. A synthetic MCCE problem with a **known ground-truth solution**, enabling precise bias–variance–cost comparisons.
+1. An MCCE problem with a **known ground-truth solution**, enabling precise bias–variance–cost comparisons.
 2. A **Bermudan basket option pricing** problem, illustrating performance in an optimal stopping setting.
 3. A **distributionally robust offline contextual bandit** problem, demonstrating the efficiency of gradient estimation in optimization tasks.
 
@@ -13,7 +13,7 @@ Each experiment is self-contained and organized in a separate subfolder.
 
 ---
 
-## Repository Structure
+## 🗂️ Repository Structure
 
 ```
 .
@@ -69,25 +69,25 @@ See `contextual-bandit/README.md` for details.
 
 ---
 
-## Requirements and Usage
+## 🚀 Requirements and Usage
 
 Each subfolder contains its own experiment scripts and relies on standard scientific Python packages listed in the corresponding `requirements.txt`. We use Python 3.12.3 for our experiments. Instructions on how to run the code for each experiment can be found in the corresponding subfolders.
 
 ---
-## Citation
+## 📝 Citation
 If you use our code or findings in your research, please cite our paper as follows:
 
 ```
 @article{}
 ```
 
-## Contact
+## ✉️ Contact
 For questions or support, please contact [Buse Sen](mailto:buse.sen@epfl.ch).
 
-## License
+## ⚖️ License
 This project is licensed under the [MIT License](LICENSE).
 
-## References
+## 📚 References
 * Yi Shen, Pan Xu, and Michael Zavlanos. [Wasserstein Distributionally Robust Policy Evaluation and Learning for Contextual Bandits](https://arxiv.org/abs/2309.08748). *Transactions on Machine Learning Research*. 2024.
 
 * Yasa Syed and Guanyang Wang. [Optimal randomized multilevel Monte Carlo for repeatedly nested expectations](https://proceedings.mlr.press/v202/syed23a.html). In *International Conference on Machine Learning*, pages 33343–33364, 2023.
