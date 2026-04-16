@@ -89,7 +89,7 @@ If you use our code or findings in your research, please cite our paper as follo
 ```
 
 ## ✉️ Contact
-For questions or support, please contact [Buse Sen](mailto:buse.sen@epfl.ch).
+For questions or support, please contact [Buse Şen](mailto:buse.sen@epfl.ch).
 
 ## ⚖️ License
 This project is licensed under the [MIT License](LICENSE).
