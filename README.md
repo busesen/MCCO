@@ -72,9 +72,10 @@ See `contextual-bandit/README.md` for details.
 ## 🚀 Requirements and Usage
 
 Each subfolder contains its own experiment scripts and relies on standard scientific Python packages listed in the corresponding `requirements.txt`. We use Python 3.12.3 for our experiments. Instructions on how to run the code for each experiment can be found in the corresponding subfolders.
+
 ---
 ## 📝 Citation
-%If you use our code or findings in your research, please cite our paper as follows:
+If you use our code or findings in your research, please cite our paper as follows:
 
 ```
 @article{sen2026multistage,
