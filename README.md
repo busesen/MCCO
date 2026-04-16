@@ -72,7 +72,22 @@ See `contextual-bandit/README.md` for details.
 ## 🚀 Requirements and Usage
 
 Each subfolder contains its own experiment scripts and relies on standard scientific Python packages listed in the corresponding `requirements.txt`. We use Python 3.12.3 for our experiments. Instructions on how to run the code for each experiment can be found in the corresponding subfolders.
+---
+## 📝 Citation
+%If you use our code or findings in your research, please cite our paper as follows:
 
+```
+@article{sen2026multistage,
+      title={Multistage Conditional Compositional Optimization}, 
+      author={Buse \c{S}en and Yifan Hu and Daniel Kuhn},
+      year={2026},
+      eprint={2604.14075},
+      journal={arXiv preprint arXiv:2604.14075},
+}
+```
+
+## ✉️ Contact
+For questions or support, please contact [Buse Sen](mailto:buse.sen@epfl.ch).
 
 ## ⚖️ License
 This project is licensed under the [MIT License](LICENSE).
