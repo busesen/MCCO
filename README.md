@@ -81,7 +81,6 @@ Each subfolder contains its own experiment scripts and relies on standard scient
       title={Multistage Conditional Compositional Optimization}, 
       author={Buse \c{S}en and Yifan Hu and Daniel Kuhn},
       year={2026},
-      eprint={2604.14075},
       journal={arXiv preprint arXiv:2604.14075},
 }
 ```
